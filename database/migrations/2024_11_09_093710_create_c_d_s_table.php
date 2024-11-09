@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Journal', function (Blueprint $table) {
+        Schema::create('CD', function (Blueprint $table) {
             $table->id();
-            $table->string('juduljurnal');
-            $table->string('namapembuat');
-            $table->year('tahunterbit');
-            $table->integer(column: 'doi');
+            $table->string('judulCD');
+            $table->string('namapenerbit');
+            $table->string('penciptacd');
+            $table->year(column: 'tahunterbit');
+            $table->integer(column: 'harga');
+            $table->integer(column: 'stok');
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Journal');
+        Schema::dropIfExists('CD');
     }
 };

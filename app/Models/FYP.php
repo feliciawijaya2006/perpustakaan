@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class FYP extends Model
 {
     use HasFactory;
 
@@ -15,13 +15,10 @@ class Book extends Model
      * @var array
      */
     protected $fillable = [
-        'judulbuku',
-        'namapenerbit',
+        'judul',
+        'namapenulis',
         'tahunterbit',
-        'harga',
-        'stok',
+        'doi',
+        'jumlahhalaman',
     ];
-
-        // @var string
-        // protectes $table = 'Book';
 }
