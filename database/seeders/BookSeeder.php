@@ -20,7 +20,6 @@ class BookSeeder extends Seeder
                 'harga' => $faker->numberBetween(50000, 200000), // Harga acak antara 50,000 dan 200,000
                 'stok' => $faker->numberBetween(1, 100),         // Stok acak antara 1 dan 100
             ]);
-            
         }
     }
 }
