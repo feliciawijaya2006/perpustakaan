@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\FYP;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
+use App\Models\User;
 
 class FYPSeeder extends Seeder
 {
@@ -12,6 +14,6 @@ class FYPSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        FYP::factory(10)->create();
     }
 }

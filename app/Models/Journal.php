@@ -9,15 +9,22 @@ class Journal extends Model
 {
     use HasFactory;
 
+    protected $table = 'journals';
     /**
      * fillable
      *
      * @var array
+     * 
      */
+
     protected $fillable = [
         'juduljurnal',
         'namapembuat',
         'tahunterbit',
-        'doi',
+        'jumlahhalaman',
     ];
+
+        // @var string
+        // protectes $table = 'Book';
+    public $timestamps = false;
 }

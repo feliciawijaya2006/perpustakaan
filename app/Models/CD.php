@@ -9,17 +9,25 @@ class CD extends Model
 {
     use HasFactory;
 
+    protected $table = 'cds';
     /**
      * fillable
      *
      * @var array
+     * 
      */
+
     protected $fillable = [
-        'judulCD',
+        'judulcd',
         'namapenerbit',
         'penciptacd',
         'tahunterbit',
         'harga',
         'stok',
     ];
+
+        // @var string
+        // protectes $table = 'Book';
+    public $timestamps = false;
+
 }

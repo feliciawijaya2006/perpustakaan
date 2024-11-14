@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('FYP', function (Blueprint $table) {
+        Schema::create('fyps', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
+            $table->string('judulfyp');
             $table->string('namapenulis');
-            $table->year('tahunterbit');
-            $table->integer(column: 'doi');
+            $table->year(column: 'tahunterbit');
             $table->integer(column: 'jumlahhalaman');
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('FYP');
+        Schema::dropIfExists('fyps');
     }
 };

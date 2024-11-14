@@ -9,16 +9,23 @@ class FYP extends Model
 {
     use HasFactory;
 
+    protected $table = 'fyps';
     /**
      * fillable
      *
      * @var array
+     * 
      */
+
     protected $fillable = [
-        'judul',
+        'judulfyp',
         'namapenulis',
         'tahunterbit',
-        'doi',
         'jumlahhalaman',
     ];
+
+        // @var string
+        // protectes $table = 'Book';
+    public $timestamps = false;
+
 }

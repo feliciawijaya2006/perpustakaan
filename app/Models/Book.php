@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-
+    protected $table = 'books';
     /**
      * fillable
      *
@@ -25,4 +25,6 @@ class Book extends Model
 
         // @var string
         // protectes $table = 'Book';
+    public $timestamps = false;
+
 }
