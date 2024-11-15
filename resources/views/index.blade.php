@@ -72,7 +72,7 @@
     </style>
 </head>
 <body>
-    <h1>Data Tabel</h1>
+    <h1>Library Mini</h1>
 
     <!-- Buttons to switch between tables -->
     <div class="btn-container">

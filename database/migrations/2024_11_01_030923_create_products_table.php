@@ -15,9 +15,11 @@ return new class extends Migration
         $table->id();
         $table->string('judulbuku');
         $table->string('namapenerbit');
+        $table->string('jenisbuku');
         $table->year('tahunterbit');
         $table->integer(column: 'harga');
         $table->integer(column: 'stok');
+
     });
 }
 

@@ -27,4 +27,5 @@ class Journal extends Model
         // @var string
         // protectes $table = 'Book';
     public $timestamps = false;
+    
 }

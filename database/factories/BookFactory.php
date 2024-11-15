@@ -26,6 +26,7 @@ class BookFactory extends Factory
         return [
             'judulbuku' => fake()->sentence(),
             'namapenerbit' => fake()->company(),
+            'jenisbuku' => fake()->randomElement(['ebook', 'buku fisik']),
             'tahunterbit' => fake() -> year(),
             'harga' => fake() -> numberBetween(50000, 200000),
             'stok' => fake() -> numberBetween(1, 100),

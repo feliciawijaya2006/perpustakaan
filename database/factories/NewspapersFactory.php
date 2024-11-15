@@ -25,9 +25,9 @@ class NewspapersFactory extends Factory
     {
         return [
             'tanggalterbit' => fake()->date('Y-m-d', 'now'),
-            'namapenerbit' => fake()->company(),
-            'harga' => fake() -> numberBetween(50000, 200000),
-            'stok' => fake() -> numberBetween(1, 100),
+            'namapenerbit' => fake()->randomElement(['TribunTimur', 'Fajar', 'Kompas']),
+            'harga' => fake()-> numberBetween(50000, 200000),
+            'stok' => fake()-> numberBetween(1, 100),
         ];
     }
 

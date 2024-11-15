@@ -18,6 +18,7 @@ class Book extends Model
     protected $fillable = [
         'judulbuku',
         'namapenerbit',
+        'jenisbuku',
         'tahunterbit',
         'harga',
         'stok',

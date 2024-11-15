@@ -26,8 +26,6 @@ class CD extends Model
         'stok',
     ];
 
-        // @var string
-        // protectes $table = 'Book';
     public $timestamps = false;
 
 }
