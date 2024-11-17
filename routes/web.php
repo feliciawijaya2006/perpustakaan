@@ -4,6 +4,7 @@ use App\Http\Controllers\PerpustakaanController;
 use App\Http\Controllers\PustakawanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AccessRequestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsPustakawan;
@@ -36,6 +37,9 @@ Route::middleware(['auth', IsPustakawan::class])->prefix('pustakawan')->group(fu
 
     // Route untuk memeriksa pembaruan data
     Route::get('/check-update', [PustakawanController::class, 'checkForDataUpdate'])->name('check_for_data_update');
+
+    // Menampilkan form pengajuan peminjaman
+    Route::get('pengajuan', [AccessRequestController::class, 'showRequests'])->name('pengajuan');
 
     // Route untuk mengelola permintaan akses
     Route::post('/access-request/approve/{id}', [PustakawanController::class, 'approveAccessRequest'])->name('accept.request');

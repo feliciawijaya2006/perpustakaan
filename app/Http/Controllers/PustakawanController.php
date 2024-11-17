@@ -38,10 +38,14 @@ class PustakawanController extends Controller
 
         // Ambil data buku dan permintaan akses
         $books = Book::all(); // Ambil semua data buku
+        $journals = Journal::all(); 
+        $cds = CD::all(); 
+        $fyps = FYP::all(); 
+        $newspapers = Newspapers::all(); 
         $requests = AccessRequest::all();
 
         return view('pustakawan_dashboard', compact(
-            'recentBooks', 'recentJournals', 'recentCds', 'recentFyps', 'recentNewspapers', 'requests', 'books'
+            'recentBooks', 'recentJournals', 'recentCds', 'recentFyps', 'recentNewspapers', 'requests', 'books', 'journals', 'cds', 'fyps', 'newspapers'
         ));
     }
 
@@ -66,7 +70,7 @@ class PustakawanController extends Controller
 
         return redirect()->route('pustakawan_dashboard')->with('error', 'Permintaan akses telah ditolak!');
     }
-
+    //Buku
     // Fungsi untuk menambah data buku
     public function addBook(Request $request)
     {
@@ -112,19 +116,31 @@ class PustakawanController extends Controller
         $book->update($validated);
 
         // Redirect ke halaman dashboard pustakawan dengan pesan sukses
-        return redirect()->route('pustakawan_dashboard')->with('success', 'Buku berhasil diperbarui!');
+        return redirect()->route('pustakawan_dashboard')->with('success', 'Jurnal berhasil diperbarui!');
     }
+
+    //Jurnal
     // Fungsi untuk menambah data jurnal
     public function addJournal(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'publisher' => 'required|string|max:255',
-            'published_at' => 'required|date',
+            'juduljurnal' => 'required|string|max:255',
+            'namapembuat' => 'required|string|max:255',
+            'tahunterbit' => 'required|integer|digits:4|between:1900,2100',
+            'jumlahhalaman' => 'required|integer',
+            // 'last_updated' => 'required|date_format:Y-m-d H:i:s',
         ]);
-
-        Journal::create($validated);
-
+    
+        // Menambah data buku baru ke database menggunakan create()
+        Journal::create([
+            'juduljurnal' => $validated['juduljurnal'],
+            'namapembuat' => $validated['namapembuat'],
+            'tahunterbit' => $validated['tahunterbit'],
+            'jumlahhalaman' => $validated['jumlahhalaman'],
+            // 'last_updated' => $validated['last_updated'],
+        ]);
+    
+        // Redirect ke halaman dashboard pustakawan dengan pesan sukses
         return redirect()->route('pustakawan_dashboard')->with('success', 'Jurnal berhasil ditambahkan!');
     }
 
@@ -132,9 +148,10 @@ class PustakawanController extends Controller
     public function updateJournal(Request $request, $id)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'publisher' => 'required|string|max:255',
-            'published_at' => 'required|date',
+            'juduljurnal' => 'required|string|max:255',
+            'namapembuat' => 'required|string|max:255',
+            'tahunterbit' => 'required|integer|digits:4|between:1900,2100',
+            'jumlahhalaman' => 'required|integer',
         ]);
 
         $journal = Journal::findOrFail($id);
@@ -143,16 +160,25 @@ class PustakawanController extends Controller
         return redirect()->route('pustakawan_dashboard')->with('success', 'Jurnal berhasil diperbarui!');
     }
 
+    //FYP
     // Fungsi untuk menambah data FYP
     public function addFYP(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'submitted_at' => 'required|date',
+            'judulfyp' => 'required|string|max:255',
+            'namapembuat' => 'required|string|max:255',
+            'tahunterbit' => 'required|date',
+            'jumlahhalaman' => 'required|integer',
         ]);
 
-        FYP::create($validated);
+        // Menambah data buku baru ke database menggunakan create()
+        FYP::create([
+            'judulfyp' => $validated['judulfyp'],
+            'namapembuat' => $validated['namapembuat'],
+            'tahunterbit' => $validated['tahunterbit'],
+            'jumlahhalaman' => $validated['jumlahhalaman'],
+            // 'last_updated' => $validated['last_updated'],
+        ]);
 
         return redirect()->route('pustakawan_dashboard')->with('success', 'FYP berhasil ditambahkan!');
     }
@@ -161,9 +187,10 @@ class PustakawanController extends Controller
     public function updateFYP(Request $request, $id)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'submitted_at' => 'required|date',
+            'judulfyp' => 'required|string|max:255',
+            'namapembuat' => 'required|string|max:255',
+            'tahunterbit' => 'required|date',
+            'jumlahhalaman' => 'required|integer',
         ]);
 
         $fyp = FYP::findOrFail($id);
@@ -176,12 +203,19 @@ class PustakawanController extends Controller
     public function addNewspaper(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'publisher' => 'required|string|max:255',
-            'published_at' => 'required|date',
+            'tanggalterbit' => 'required|date',
+            'namapenerbit' => 'required|string|max:255',
+            'harga' => 'required|integer',
+            'stok' => 'required|integer',
         ]);
 
-        Newspapers::create($validated);
+        Newspapers::create([
+            'tanggalterbit' => $validated['tanggalterbit'],
+            'namapenerbit' => $validated['namapenerbit'],
+            'harga' => $validated['harga'],
+            'stok' => $validated['stok'],
+            // 'last_updated' => $validated['last_updated'],
+        ]);
 
         return redirect()->route('pustakawan_dashboard')->with('success', 'Koran berhasil ditambahkan!');
     }
@@ -190,9 +224,10 @@ class PustakawanController extends Controller
     public function updateNewspaper(Request $request, $id)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'publisher' => 'required|string|max:255',
-            'published_at' => 'required|date',
+            'tanggalterbit' => 'required|date',
+            'namapenerbit' => 'required|string|max:255',
+            'harga' => 'required|integer',
+            'stok' => 'required|integer',
         ]);
 
         $newspaper = Newspapers::findOrFail($id);
@@ -201,16 +236,29 @@ class PustakawanController extends Controller
         return redirect()->route('pustakawan_dashboard')->with('success', 'Koran berhasil diperbarui!');
     }
 
+    // CD
     // Fungsi untuk menambah data CD
     public function addCD(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'released_at' => 'required|date',
+            'judulcd' => 'required|string|max:255',
+            'namapenerbit' => 'required|string|max:255',
+            'penciptacd' => 'required|string|max:255',
+            'tahunterbit' => 'required|integer|digits:4|between:1900,2100',
+            'harga' => 'required|integer',
+            'stok' => 'required|integer',
         ]);
 
-        CD::create($validated);
+        // Menambah data cd baru ke database menggunakan create()
+         CD::create([
+            'judulcd' => $validated['judulcd'],
+            'namapenerbit' => $validated['namapenerbit'],
+            'penciptacd' => $validated['penciptacd'],
+            'tahunterbit' => $validated['tahunterbit'],
+            'harga' => $validated['harga'],
+            'stok' => $validated['stok'],
+            // 'last_updated' => $validated['last_updated'],
+        ]);
 
         return redirect()->route('pustakawan_dashboard')->with('success', 'CD berhasil ditambahkan!');
     }
@@ -219,9 +267,12 @@ class PustakawanController extends Controller
     public function updateCD(Request $request, $id)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'released_at' => 'required|date',
+            'judulcd' => 'required|string|max:255',
+            'namapenerbit' => 'required|string|max:255',
+            'penciptacd' => 'required|string|max:255',
+            'tahunterbit' => 'required|integer|digits:4|between:1900,2100',
+            'harga' => 'required|integer',
+            'stok' => 'required|integer',
         ]);
 
         $cd = CD::findOrFail($id);

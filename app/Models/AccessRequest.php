@@ -1,5 +1,7 @@
 <?php
 
+// app/Models/AccessRequest.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,16 +11,19 @@ class AccessRequest extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel jika tidak menggunakan konvensi plural
-    protected $table = 'access_requests';
+    protected $table = 'access_requests'; // Nama tabel di database
 
-    // Tentukan atribut yang dapat diisi (mass assignment)
     protected $fillable = [
-        'student_name',
-        'material_type',  // Misalnya: Buku, Jurnal, FYP, CD, Koran
-        'status',         // Pending, Approved, Rejected
+        'user_id',  // ID Pengguna
+        'access_type', // Jenis Akses
+        'reason', // Alasan pengajuan
+        'status', // Status permintaan
     ];
 
-    // Tentukan atribut yang tidak boleh diisi secara massal (optional)
-    protected $guarded = [];
+    // Jika ingin mendefinisikan relasi, misalnya jika 'user_id' mengacu ke model User:
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
+

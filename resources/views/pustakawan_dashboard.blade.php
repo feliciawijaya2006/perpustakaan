@@ -102,9 +102,16 @@
 <body>
     <div class="container"> <!-- Tambahkan kontainer untuk pembatas lebar -->
         <h1>Selamat datang, Pustakawan!</h1>
-
+        <h2>Menu Pengajuan Peminjaman</h2>
+        <div class="btn-container">
+        <form action="{{ route('pengajuan') }}" method="GET">
+            <button type="submit">Pengajuan Peminjaman</button>
+        </form>
+</div>
+        <h2>Menu Add Items</h2>
         <!-- Tombol Menambah Data -->
         <div class="btn-container">
+            <!-- Buku -->
             <form action="{{ route('pustakawan.addBook') }}" method="POST">
                 @csrf
                 <div>
@@ -137,7 +144,7 @@
                 </div> -->
                 <button type="submit">Tambah Buku</button>
             </form>
-
+        <!-- Jurnal -->
         <form action="{{ route('pustakawan.addJournal') }}" method="POST">
             @csrf
             <div>
@@ -160,9 +167,81 @@
                 <label for="last_updated">Last Updated</label>
                 <input type="number" name="last_updated" required>
             </div> -->
-            <button type="submit">Tambah Buku</button>
+            <button type="submit">Tambah Jurnal</button>
         </form>
-            
+        <!-- CD -->
+        <form action="{{ route('pustakawan.addCD') }}" method="POST">
+            @csrf
+            <div>
+                <label for="judulcd">Judul CD</label>
+                <input type="text" name="judulcd" required>
+            </div>
+            <div>
+                <label for="namapenerbit">Nama Label</label>
+                <input type="text" name="namapenerbit" required>
+            </div>
+            <div>
+                <label for="penciptacd">Nama Pencipta</label>
+                <input type="text" name="penciptacd" required>
+            </div>
+            <div>
+                <label for="tahunterbit">Tahun Terbit</label>
+                <input type="number" name="tahunterbit" required>
+            </div>
+            <div>
+                <label for="harga">Harga</label>
+                <input type="number" name="harga" required>
+            </div>
+            <div>
+                <label for="stok">Stok</label>
+                <input type="number" name="stok" required>
+            </div>
+            <button type="submit">Tambah CD</button>
+        </form>
+        
+        <!-- FYP -->
+        <form action="{{ route('pustakawan.addFYP') }}" method="POST">
+            @csrf
+            <div>
+                <label for="judulfyp">Judul FYP</label>
+                <input type="text" name="judulfyp" required>
+            </div>
+            <div>
+                <label for="namapembuat">Nama Penulis</label>
+                <input type="text" name="namapembuat" required>
+            </div>
+            <div>
+                <label for="tahunterbit">Tahun Terbit</label>
+                <input type="date" name="tahunterbit" required>
+            </div>
+            <div>
+                <label for="jumlahhalaman">Jumlah Halaman</label>
+                <input type="number" name="jumlahhalaman" required>
+            </div>
+            <button type="submit">Tambah FYP</button>
+        </form>
+
+        <!-- Newspapers -->
+        <form action="{{ route('pustakawan.addNewspaper') }}" method="POST">
+            @csrf
+            <div>
+                <label for="tanggalterbit">Tanggal Terbit</label>
+                <input type="date" name="tanggalterbit" required>
+            </div>
+            <div>
+                <label for="namapenerbit">Nama Penerbit</label>
+                <input type="text" name="namapenerbit" required>
+            </div>
+            <div>
+                <label for="harga">Harga</label>
+                <input type="number" name="harga" required>
+            </div>
+            <div>
+                <label for="stok">Stok</label>
+                <input type="number" name="stok" required>
+            </div>
+            <button type="submit">Tambah Newspapers</button>
+        </form>
 
         <!-- Peringatan Pembaruan jika 3 Bulan Tidak Ada Penambahan -->
         @if($recentBooks == 0 || $recentJournals == 0 || $recentCds == 0 || $recentFyps == 0 || $recentNewspapers == 0)
@@ -219,6 +298,85 @@
                     <td>{{ $journal->namapembuat }}</td>
                     <td>{{ $journal->tahunterbit }}</td>
                     <td>{{ $journal->jumlahhalaman }}</td>
+                    <!-- <td>{{ $book->last_updated }}</td> -->
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
+        <!-- Daftar CD yang Ada di Database -->
+        <h2>Daftar CD</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Judul CD</th>
+                    <th>Nama Label</th>
+                    <th>Nama Pencipta</th>
+                    <th>Tahun Terbit</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <!-- <th>Last Updated</th> -->
+                </tr>
+            </thead>
+            <tbody>
+            @foreach ($cds as $cd)
+                <tr>
+                    <td>{{ $cd->judulcd }}</td>
+                    <td>{{ $cd->namapenerbit }}</td>
+                    <td>{{ $cd->penciptacd }}</td>
+                    <td>{{ $cd->tahunterbit }}</td>
+                    <td>{{ $cd->harga }}</td>
+                    <td>{{ $cd->stok }}</td>
+                    <!-- <td>{{ $book->last_updated }}</td> -->
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
+        <!-- Daftar FYP yang Ada di Database -->
+        <h2>Daftar FYP</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Judul FYP</th>
+                    <th>Nama Penulis</th>
+                    <th>Tahun Terbit</th>
+                    <th>Jumlah Halaman</th>
+                    <!-- <th>Last Updated</th> -->
+                </tr>
+            </thead>
+            <tbody>
+            @foreach ($fyps as $fyp)
+                <tr>
+                    <td>{{ $fyp->judulfyp }}</td>
+                    <td>{{ $fyp->namapembuat }}</td>
+                    <td>{{ $fyp->tahunterbit }}</td>
+                    <td>{{ $fyp->jumlahhalaman }}</td>
+                    <!-- <td>{{ $book->last_updated }}</td> -->
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
+        <!-- Daftar Newspapers yang Ada di Database -->
+        <h2>Daftar Newspapers</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal Terbit</th>
+                    <th>Nama Penerbit</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <!-- <th>Last Updated</th> -->
+                </tr>
+            </thead>
+            <tbody>
+            @foreach ($newspapers as $newspaper)
+                <tr>
+                    <td>{{ $newspaper->tanggalterbit }}</td>
+                    <td>{{ $newspaper->namapenerbit }}</td>
+                    <td>{{ $newspaper->harga }}</td>
+                    <td>{{ $newspaper->stok }}</td>
                     <!-- <td>{{ $book->last_updated }}</td> -->
                 </tr>
             @endforeach

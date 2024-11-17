@@ -37,7 +37,7 @@ class JournalFactory extends Factory
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
-            'judulcd' => null,
+            'juduljurnal' => null,
         ]);
     }
 }
